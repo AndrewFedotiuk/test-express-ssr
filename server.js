@@ -32,9 +32,7 @@ app.get('*', (req, res) => {
 				${helmet.title.toString()}
 			</head>
 			<body>
-				<div id="root">
-					${content}
-				</div>
+				<div id="root">${content}</div>
 			</body>
 			<script type="module" src="client_bundle.js"></script>
 		</html>

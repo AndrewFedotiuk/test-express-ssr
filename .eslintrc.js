@@ -24,7 +24,7 @@ module.exports = {
 	],
 	rules: {
 		'no-tabs': ['error', { allowIndentationTabs: true }],
-		'indent': ['error', 'tab'],
+		'indent': [2, 'tab', { "SwitchCase": 1 }],
 		'semi': ['error','always'],
 		'react/jsx-indent': [2, 'tab'],
 		'react/jsx-indent-props': [2, 'tab'],
