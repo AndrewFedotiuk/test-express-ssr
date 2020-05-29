@@ -1,36 +1,39 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux';
 import { setSearchFilm } from '../reducers/actions';
 
 const Home = () => {
 	const dispatch = useDispatch();
-	const inputEl = useRef();
+	const [searchText, setSearchText] = useState('');
 
 	const searchFilm = (e) => {
 		e.preventDefault();
-		dispatch(setSearchFilm(inputEl.current.value));
-		inputEl.current.value = '';
+		if (searchText) {
+			dispatch(setSearchFilm(searchText));
+			setSearchText('');
+		}
 	};
 
 	const head = () => (
 		<Helmet>
-			<title>my title</title>
+			<title>Search</title>
 		</Helmet>
 	);
 
 	return (
-		<form onSubmit={searchFilm}>
+		<form onSubmit={searchFilm} className='container'>
 			{head()}
 
 			<input
 				type='text'
 				placeholder='Put film-name'
-				style={{ width: '100%', marginBottom: '10px' }}
-				ref={inputEl}
+				className='col-12 mb-3 mt-3'
+				value={searchText}
+				onChange={(e) => setSearchText(e.target.value)}
 			/>
 			<br />
-			<button type='submit'>Search</button>
+			<button type='submit' className='btn btn-primary'>Search</button>
 		</form>
 	);
 };
