@@ -1,9 +1,8 @@
 import types from './action-types';
 
-export default {};
-
-export const searchStarted = () => ({
+export const searchStarted = (word) => ({
 	type: types.SEARCH_STARTED,
+	payload: word,
 });
 
 export const searchSuccess = (data) => ({
@@ -11,12 +10,13 @@ export const searchSuccess = (data) => ({
 	payload: data,
 });
 
-export const searchFailure = () => ({
+export const searchFailure = (error) => ({
 	type: types.SEARCH_FAILURE,
+	payload: error,
 });
 
 export const setSearchFilm = (word) => (dispatch, getState, { api }) => {
-	dispatch(searchStarted());
+	dispatch(searchStarted(word));
 
 	fetch(api.concat(word))
 		.then((response) => response.json())

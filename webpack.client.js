@@ -6,9 +6,9 @@ module.exports = {
 	entry: './src/index.jsx',
 	output: {
 		filename: 'client_bundle.js',
-		chunkFilename: '[name].bundle.js',
+		chunkFilename: '[name]_chunk.js',
 		path: path.resolve(__dirname, 'build/public'),
-		publicPath: '/build/public',
+		publicPath: '/build/public/',
 	},
 	module: {
 		rules: [
@@ -23,6 +23,7 @@ module.exports = {
 					],
 					plugins: [
 						'@babel/plugin-syntax-dynamic-import',
+						'dynamic-import-node',
 						'react-loadable/babel',
 					],
 				},

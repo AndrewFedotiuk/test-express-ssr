@@ -12,14 +12,31 @@ const Home = Loadable({
 	},
 });
 
+const ShowsList = Loadable({
+	loader: () => import('./pages/list'),
+
+	loading() {
+		return <div>Loading...</div>;
+	},
+});
+
 const App = () => (
 	<Provider store={store}>
 		<Switch>
 			<Route
+				exact
 				path='/'
 				render={(props) => (
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					<Home {...props} />
+				)}
+			/>
+
+			<Route
+				path='/shows-list'
+				render={(props) => (
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					<ShowsList {...props} />
 				)}
 			/>
 		</Switch>

@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import { setSearchFilm } from '../reducers/actions';
+import head from '../commponents/head-helper';
 
 export default () => {
 	const dispatch = useDispatch();
 	const [searchText, setSearchText] = useState('');
+
+	const history = useHistory();
+	const showsData = useSelector((state) => state.tvmaze.searchResult);
+
+	useEffect(() => {
+		if (showsData) history.push('/shows-list');
+	}, [showsData]);
 
 	const searchFilm = (e) => {
 		e.preventDefault();
@@ -15,15 +23,9 @@ export default () => {
 		}
 	};
 
-	const head = () => (
-		<Helmet>
-			<title>Search</title>
-		</Helmet>
-	);
-
 	return (
 		<form onSubmit={searchFilm} className='container'>
-			{head()}
+			{head('Search')}
 
 			<input
 				type='text'
