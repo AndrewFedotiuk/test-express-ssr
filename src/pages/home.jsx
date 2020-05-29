@@ -26,7 +26,7 @@ const Home = () => {
 			<input
 				type='text'
 				placeholder='Put film-name'
-				style={{ width: '100%', 'margin-bottom': '10px' }}
+				style={{ width: '100%', marginBottom: '10px' }}
 				ref={inputEl}
 			/>
 			<br />

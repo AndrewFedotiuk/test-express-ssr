@@ -7,7 +7,12 @@ import { StaticRouter } from 'react-router';
 import bodyParser from 'body-parser';
 import { Helmet } from 'react-helmet';
 
+import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable-ssr-addon';
+
 import App from './src/app';
+
+const manifest = require('./build/public/react-loadable-ssr-addon.json');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,25 +21,39 @@ app.use(bodyParser.json());
 app.use(express.static('build/public'));
 
 app.get('*', (req, res) => {
+	const modules = new Set();
+
 	const content = ReactDOMServer.renderToString(
 		// eslint-disable-next-line react/jsx-filename-extension
 		<StaticRouter location={req.url}>
-			<App />
+			<Loadable.Capture report={(moduleName) => modules.add(moduleName)}>
+				<App />
+			</Loadable.Capture>
 		</StaticRouter>,
 	);
+
+	const bundles = getBundles(manifest, [...manifest.entrypoints, ...Array.from(modules)]);
+
+	const styles = bundles.css || [];
+	const scripts = bundles.js || [];
 
 	const helmet = Helmet.renderStatic();
 
 	const html = `
-		<html lang="en-EN">
+		<!doctype html>
+		<html lang='en-EN'>
 			<head>
+				<meta charset="UTF-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<meta http-equiv="X-UA-Compatible" content="ie=edge">
 				${helmet.meta.toString()}
 				${helmet.title.toString()}
+				${styles.map((style) => `<link href='${style.file}' rel='stylesheet' />`).join('\n')}
 			</head>
 			<body>
-				<div id="root">${content}</div>
+				<div id='root'>${content}</div>
 			</body>
-			<script type="module" src="client_bundle.js"></script>
+			${scripts.map((script) => `<script src='${script.file}'></script>`).join('\n')}
 		</html>
 	`;
 
@@ -42,10 +61,8 @@ app.get('*', (req, res) => {
 	res.send(html);
 });
 
-try {
+Loadable.preloadAll().then(() => {
 	app.listen(PORT, () => {
 		console.log(`App running at port ${PORT}`);
 	});
-} catch (e) {
-	console.log(`Server cant start - ${e}`);
-}
+});
