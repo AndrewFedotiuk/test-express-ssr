@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux';
 import { setSearchFilm } from '../reducers/actions';
 
-const Home = () => {
+export default () => {
 	const dispatch = useDispatch();
 	const [searchText, setSearchText] = useState('');
 
@@ -28,7 +28,7 @@ const Home = () => {
 			<input
 				type='text'
 				placeholder='Put film-name'
-				className='col-12 mb-3 mt-3'
+				className='col-12 my-3'
 				value={searchText}
 				onChange={(e) => setSearchText(e.target.value)}
 			/>
@@ -37,5 +37,3 @@ const Home = () => {
 		</form>
 	);
 };
-
-export default Home;

@@ -1,7 +1,8 @@
+import { combineReducers } from 'redux';
 import tvmaze from './tvmaze';
 
-const reducer = (state, action) => ({
-	tvmaze: tvmaze(state, action),
+const reducer = combineReducers({
+	tvmaze,
 });
 
 export default reducer;
