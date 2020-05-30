@@ -1,21 +1,35 @@
-import React, { useEffect } from 'react';
-import head from '../commponents/head-helper';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { head, getSearchParamsFromURL } from '../commponents/helpers';
+import { setSearchFilm } from '../reducers/actions';
 
 export default () => {
+	const dispatch = useDispatch();
 	const showsData = useSelector((state) => state.tvmaze.searchResult);
-	// useEffect(() => {
-	// 	if (showsData) history.push('/shows-list');
-	// }, []);
 
-	console.log(showsData);
+	if (!showsData) {
+		dispatch(setSearchFilm(getSearchParamsFromURL('keyword')));
+	}
 
-	return(
+	return (
 		<div className='container'>
 			{head('List')}
-			<div className='row'>
-				list
-			</div>
+			<p>Result:</p>
+			<ul className='row row-cols-1 row-cols-md-3 col mb-4'>
+				{
+					showsData && showsData.map(({
+						id, name, image, genres,
+					}) => (
+						<li key={id} className='card'>
+							<div className='card-body'>
+								<img src={image && image.medium} className='card-img-top mb-2' alt={name} />
+								<h5 className='card-title'>{name}</h5>
+								<p className='card-text'>{genres.join(', ')}</p>
+							</div>
+						</li>
+					))
+				}
+			</ul>
 		</div>
-	)
+	);
 };

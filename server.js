@@ -5,7 +5,10 @@ import bodyParser from 'body-parser';
 
 import Loadable from 'react-loadable';
 
+import fetch from 'node-fetch';
 import ssr from './server/ssr';
+
+global.fetch = fetch;
 
 const app = express();
 const PORT = process.env.PORT || 3000;

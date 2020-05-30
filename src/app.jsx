@@ -14,7 +14,6 @@ const Home = Loadable({
 
 const ShowsList = Loadable({
 	loader: () => import('./pages/list'),
-
 	loading() {
 		return <div>Loading...</div>;
 	},
@@ -33,7 +32,7 @@ const App = () => (
 			/>
 
 			<Route
-				path='/shows-list'
+				path='/list'
 				render={(props) => (
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					<ShowsList {...props} />
