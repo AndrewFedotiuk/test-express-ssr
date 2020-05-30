@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { setSearchFilm } from '../reducers/actions';
-import { head } from '../commponents/helpers';
+import { Head } from '../commponents/helpers';
 
 export default () => {
 	const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export default () => {
 
 	return (
 		<form onSubmit={searchFilm} className='container'>
-			{head('Search')}
+			{Head('Search')}
 
 			<input
 				type='text'

@@ -4,6 +4,7 @@ import Loadable from 'react-loadable';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import { SkipServer } from './commponents/helpers';
 
 const Home = Loadable({
 	loader: () => import('./pages/home'),
@@ -34,8 +35,10 @@ const App = () => (
 			<Route
 				path='/list'
 				render={(props) => (
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					<ShowsList {...props} />
+					<SkipServer>
+						{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+						<ShowsList {...props} />
+					</SkipServer>
 				)}
 			/>
 		</Switch>
