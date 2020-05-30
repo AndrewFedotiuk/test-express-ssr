@@ -6,10 +6,11 @@ import head from '../commponents/head-helper';
 
 export default () => {
 	const dispatch = useDispatch();
+	const showsData = useSelector((state) => state.tvmaze.searchResult);
+
 	const [searchText, setSearchText] = useState('');
 
 	const history = useHistory();
-	const showsData = useSelector((state) => state.tvmaze.searchResult);
 
 	useEffect(() => {
 		if (showsData) history.push('/shows-list');

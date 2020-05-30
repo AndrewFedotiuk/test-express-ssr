@@ -1,4 +1,5 @@
 import types from './action-types';
+import normalizeData from './helper';
 
 export const searchStarted = (word) => ({
 	type: types.SEARCH_STARTED,
@@ -20,6 +21,7 @@ export const setSearchFilm = (word) => (dispatch, getState, { api }) => {
 
 	fetch(api.concat(word))
 		.then((response) => response.json())
+		.then((data) => normalizeData(data))
 		.then((data) => dispatch(searchSuccess(data)))
 		.catch((e) => dispatch(searchFailure(e)));
 };
