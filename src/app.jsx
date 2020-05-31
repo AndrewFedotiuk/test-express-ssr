@@ -8,16 +8,6 @@ import store from './store';
 
 import { SkipServer } from './commponents/helpers';
 
-// TODO: babel cant use this :(
-// const importHelper = (page) => {
-// 	Loadable({
-// 		loader: () => import(`./pages/${page}`),
-// 		loading() {
-// 			return <div>Loading...</div>;
-// 		},
-// 	});
-// };
-
 const Home = Loadable({
 	loader: () => import('./pages/home'),
 	loading() {

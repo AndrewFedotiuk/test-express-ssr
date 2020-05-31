@@ -8,6 +8,7 @@ export const Head = (text) => (
 	</Helmet>
 );
 
+// eslint-disable-next-line react-hooks/rules-of-hooks
 export const getSearchParamsFromURL = (key = 'name') => new URLSearchParams(useLocation().search).get(key);
 
 export const SkipServer = ({ children }) => {

@@ -30,10 +30,10 @@ export const searchFilm = (word) => (dispatch, getState, { search }) => {
 		.catch((e) => dispatch(searchFailure(e)));
 };
 
-export const searchFilmById = (id) => (dispatch, getState, { singleSearch }) => {
-	return fetch(singleSearch.concat(id))
-		.then((response) => response.json())
-		.then((data) => normalizeData([{ show: data }]))
-		.then((data) => dispatch(singleSearchSuccess(data[0])))
-		.catch((e) => dispatch(searchFailure(e)));
-};
+export const searchFilmById = (id) => (
+	dispatch, getState, { singleSearch },
+) => fetch(singleSearch.concat(id))
+	.then((response) => response.json())
+	.then((data) => normalizeData([{ show: data }]))
+	.then((data) => dispatch(singleSearchSuccess(data[0])))
+	.catch((e) => dispatch(searchFailure(e)));
