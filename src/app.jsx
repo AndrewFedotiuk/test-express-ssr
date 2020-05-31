@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
+import { Link } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import { Provider } from 'react-redux';
@@ -22,6 +23,7 @@ const ShowsList = Loadable({
 
 const App = () => (
 	<Provider store={store}>
+		<h1 className='container mt-3'><Link to='/'>Search</Link></h1>
 		<Switch>
 			<Route
 				exact
