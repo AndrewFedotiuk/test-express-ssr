@@ -12,10 +12,10 @@ export const Head = (text) => (
 export const getSearchParamsFromURL = (key = 'name') => new URLSearchParams(useLocation().search).get(key);
 
 export const SkipServer = ({ children }) => {
-	const [isDesktop, setState] = useState(false);
+	const [isDesktop, setIsDesktop] = useState(false);
 
 	useEffect(() => {
-		setState(true);
+		setIsDesktop(true);
 	}, []);
 	return isDesktop ? children : null;
 };

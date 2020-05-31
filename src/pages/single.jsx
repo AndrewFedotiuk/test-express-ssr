@@ -12,7 +12,7 @@ export default () => {
 		dispatch(searchFilmById(getSearchParamsFromURL('id')));
 	} else {
 		const {
-			image, name, genres, summary,
+			image, name, genres, summary, officialSite, language,
 		} = singleSearchResult;
 
 		return (
@@ -25,8 +25,15 @@ export default () => {
 					</div>
 					<div className='col'>
 						<h2>{name}</h2>
+						<p>{language}</p>
 						<p>{`Ganres: ${genres.join(', ')}`}</p>
 						<p dangerouslySetInnerHTML={{ __html: summary }} />
+						{officialSite && (
+							<p>
+								{'Official site: '}
+								<a href={officialSite} target='_blank' rel='noreferrer'>{officialSite}</a>
+							</p>
+						)}
 					</div>
 				</div>
 			</div>

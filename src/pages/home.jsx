@@ -26,6 +26,7 @@ export default () => {
 				type='text'
 				placeholder='Put film-name'
 				className='col-12 my-3'
+				maxLength='100'
 				value={searchText}
 				onChange={(e) => setSearchText(e.target.value)}
 				onBlur={() => setSearchText(searchText.trim())}

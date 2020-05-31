@@ -20,14 +20,14 @@ export default () => {
 			<ul className='row row-cols-1 row-cols-md-3 col mb-4'>
 				{
 					Array.isArray(showsData) && showsData.length ? showsData.map(({
-						id, name, image, genres, summary,
+						id, name, image, genres, summary, officialSite, language,
 					}) => (
 						<li key={id} className='card'>
 							<Link
 								className='card-body'
 								to={`/single?id=${id}`}
 								onClick={() => dispatch(singleSearchSuccess({
-									name, image, genres, summary,
+									name, image, genres, summary, officialSite, language,
 								}))}
 							>
 								<img src={image ? image.medium : fakeImage} className='card-img-top mb-2' alt={name} />

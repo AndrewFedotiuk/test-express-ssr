@@ -10,6 +10,7 @@ export const searchSuccess = (data) => ({
 	type: types.SEARCH_SUCCESS,
 	payload: data,
 });
+
 export const singleSearchSuccess = (data) => ({
 	type: types.SINGLE_SEARCH_SUCCESS,
 	payload: data,
@@ -25,7 +26,7 @@ export const searchFilm = (word) => (dispatch, getState, { search }) => {
 
 	return fetch(search.concat(word))
 		.then((response) => response.json())
-		.then((data) => normalizeData(data))
+		.then((data) => data.map(({ show }) => normalizeData(show)))
 		.then((data) => dispatch(searchSuccess(data)))
 		.catch((e) => dispatch(searchFailure(e)));
 };
@@ -34,6 +35,6 @@ export const searchFilmById = (id) => (
 	dispatch, getState, { singleSearch },
 ) => fetch(singleSearch.concat(id))
 	.then((response) => response.json())
-	.then((data) => normalizeData([{ show: data }]))
-	.then((data) => dispatch(singleSearchSuccess(data[0])))
+	.then((show) => normalizeData(show))
+	.then((show) => dispatch(singleSearchSuccess(show)))
 	.catch((e) => dispatch(searchFailure(e)));
