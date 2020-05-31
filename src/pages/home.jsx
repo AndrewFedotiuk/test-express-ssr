@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { setSearchFilm } from '../reducers/actions';
+import { searchFilm } from '../reducers/actions';
 import { Head } from '../commponents/helpers';
 
 export default () => {
 	const dispatch = useDispatch();
-
 	const [searchText, setSearchText] = useState('');
-
 	const history = useHistory();
 
-	const searchFilm = (e) => {
+	const emitSearch = async (e) => {
 		e.preventDefault();
 		if (searchText) {
-			dispatch(setSearchFilm(searchText));
+			await dispatch(searchFilm(searchText));
+
 			history.push(`/list?keyword=${searchText}`);
-			setSearchText('');
 		}
 	};
 
 	return (
-		<form onSubmit={searchFilm} className='container'>
+		<form onSubmit={emitSearch} className='container'>
 			{Head('Search')}
 
 			<input

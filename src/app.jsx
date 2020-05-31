@@ -5,7 +5,18 @@ import Loadable from 'react-loadable';
 
 import { Provider } from 'react-redux';
 import store from './store';
+
 import { SkipServer } from './commponents/helpers';
+
+// TODO: babel cant use this :(
+// const importHelper = (page) => {
+// 	Loadable({
+// 		loader: () => import(`./pages/${page}`),
+// 		loading() {
+// 			return <div>Loading...</div>;
+// 		},
+// 	});
+// };
 
 const Home = Loadable({
 	loader: () => import('./pages/home'),
@@ -21,6 +32,13 @@ const ShowsList = Loadable({
 	},
 });
 
+const SingleShow = Loadable({
+	loader: () => import('./pages/single'),
+	loading() {
+		return <div>Loading...</div>;
+	},
+});
+
 const App = () => (
 	<Provider store={store}>
 		<h1 className='container mt-3'><Link to='/'>Search</Link></h1>
@@ -28,18 +46,25 @@ const App = () => (
 			<Route
 				exact
 				path='/'
-				render={(props) => (
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					<Home {...props} />
+				render={() => (
+					<Home />
 				)}
 			/>
 
 			<Route
 				path='/list'
-				render={(props) => (
+				render={() => (
 					<SkipServer>
-						{/* eslint-disable-next-line react/jsx-props-no-spreading */}
-						<ShowsList {...props} />
+						<ShowsList />
+					</SkipServer>
+				)}
+			/>
+
+			<Route
+				path='/single'
+				render={() => (
+					<SkipServer>
+						<SingleShow />
 					</SkipServer>
 				)}
 			/>

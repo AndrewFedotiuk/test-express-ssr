@@ -3,6 +3,7 @@ import types from './action-types';
 const initialState = {
 	searchWord: null,
 	searchResult: null,
+	singleSearchResult: null,
 	loading: false,
 	error: null,
 };
@@ -21,6 +22,13 @@ export default (state = initialState, action) => {
 				...state,
 				loading: false,
 				searchResult: action.payload,
+			};
+
+		case types.SINGLE_SEARCH_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				singleSearchResult: action.payload,
 			};
 
 		case types.SEARCH_FAILURE:

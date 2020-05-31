@@ -9,12 +9,13 @@ const composeEnhancers = composeWithDevTools({
 	// Specify name here, actionsBlacklist, actionsCreators and other options if needed
 });
 
-const api = 'http://api.tvmaze.com/search/shows?q=';
+const search = 'http://api.tvmaze.com/search/shows?q=';
+const singleSearch = 'http://api.tvmaze.com/shows/';
 
 const store = createStore(reducer,
 	composeEnhancers(
 		applyMiddleware(
-			ReduxThunk.withExtraArgument({ api }),
+			ReduxThunk.withExtraArgument({ search, singleSearch }),
 		),
 	));
 
