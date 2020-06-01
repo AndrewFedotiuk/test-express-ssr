@@ -6,8 +6,14 @@ import Loadable from 'react-loadable';
 import App from './app';
 
 window.onload = () => {
+	let renderMethod;
+	if (typeof window === 'undefined') {
+		renderMethod = ReactDOM.hydrate;
+	} else {
+		renderMethod = ReactDOM.render;
+	}
 	Loadable.preloadReady().then(() => {
-		ReactDOM.hydrate(
+		renderMethod(
 			<BrowserRouter>
 				<App />
 			</BrowserRouter>,

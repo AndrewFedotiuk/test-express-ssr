@@ -4,7 +4,9 @@ import { StaticRouter } from 'react-router';
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable-ssr-addon';
 import { Helmet } from 'react-helmet';
+import { Provider } from 'react-redux';
 import App from '../src/app';
+import store from '../src/store';
 
 import manifest from '../build/public/react-loadable-ssr-addon.json';
 
@@ -13,11 +15,13 @@ const ssr = (req, res) => {
 
 	const content = ReactDOMServer.renderToString(
 		// eslint-disable-next-line react/jsx-filename-extension
-		<StaticRouter location={req.url}>
-			<Loadable.Capture report={(moduleName) => modules.add(moduleName)}>
-				<App />
-			</Loadable.Capture>
-		</StaticRouter>,
+		<Provider store={store}>
+			<StaticRouter location={req.url}>
+				<Loadable.Capture report={(moduleName) => modules.add(moduleName)}>
+					<App />
+				</Loadable.Capture>
+			</StaticRouter>
+		</Provider>,
 	);
 
 	const bundles = getBundles(manifest, [...manifest.entrypoints, ...Array.from(modules)]);
@@ -25,6 +29,7 @@ const ssr = (req, res) => {
 	const styles = bundles.css || [];
 	const scripts = bundles.js || [];
 
+	const preloadedState = store.getState();
 	const helmet = Helmet.renderStatic();
 
 	const html = `
@@ -42,6 +47,9 @@ const ssr = (req, res) => {
 			<body>
 				<div id='root'>${content}</div>
 			</body>
+			<script>
+				window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+			</script>
 			${scripts.map((script) => `<script src='${script.file}'></script>`).join('\n')}
 		</html>
 	`;

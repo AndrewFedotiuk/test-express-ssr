@@ -10,7 +10,7 @@
 		"lint": "eslint --fix src --ext .js,.jsx",
 		"webpack:client": "webpack --config webpack.client.js --watch --mode=development",
 		"webpack:server": "webpack --config webpack.server.js --watch --mode=development",
-		"webpack:start": "node build/bundle.js --mode=production"
+		"webpack:start": "nodemon --watch build --exec node build/bundle.js --mode=development"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.10.1",
@@ -36,6 +36,7 @@
 		"body-parser": "^1.19.0",
 		"eslint-plugin-react-hooks": "^2.5.0",
 		"express": "^4.17.1",
+		"node-fetch": "^2.6.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-helmet": "^6.0.0",

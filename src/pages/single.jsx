@@ -4,11 +4,12 @@ import { searchFilmById } from '../reducers/actions';
 import { getSearchParamsFromURL, Head } from '../commponents/helpers';
 
 export default () => {
-	const { singleSearchResult, searchResult } = useSelector((state) => state.tvmaze);
+	const { singleSearchResult } = useSelector((state) => state.tvmaze);
 	const dispatch = useDispatch();
 	const fakeImage = 'https://upload.wikimedia.org/wikipedia/en/6/60/No_Picture.jpg';
 
-	if (!searchResult && !singleSearchResult) {
+	if (!singleSearchResult) {
+		console.log(getSearchParamsFromURL('id'));
 		dispatch(searchFilmById(getSearchParamsFromURL('id')));
 	} else {
 		const {
@@ -27,7 +28,7 @@ export default () => {
 						<h2>{name}</h2>
 						<p>{language}</p>
 						<p>{`Ganres: ${genres.join(', ')}`}</p>
-						<p dangerouslySetInnerHTML={{ __html: summary }} />
+						<div dangerouslySetInnerHTML={{ __html: summary }} />
 						{officialSite && (
 							<p>
 								{'Official site: '}

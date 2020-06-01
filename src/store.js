@@ -5,12 +5,12 @@ import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProductio
 import ReduxThunk from 'redux-thunk';
 import reducer from './reducers';
 
-const composeEnhancers = composeWithDevTools({
+export const composeEnhancers = composeWithDevTools({
 	// Specify name here, actionsBlacklist, actionsCreators and other options if needed
 });
 
-const search = 'http://api.tvmaze.com/search/shows?q=';
-const singleSearch = 'http://api.tvmaze.com/shows/';
+export const search = 'http://api.tvmaze.com/search/shows?q=';
+export const singleSearch = 'http://api.tvmaze.com/shows/';
 
 const store = createStore(reducer,
 	composeEnhancers(

@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import { Provider } from 'react-redux';
-import store from './store';
+import { applyMiddleware, createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import store, { composeEnhancers, search, singleSearch } from './store';
 
-import { SkipServer } from './commponents/helpers';
+import reducer from './reducers';
+
+let finalStore = store;
 
 const Home = Loadable({
 	loader: () => import('./pages/home'),
@@ -29,8 +33,21 @@ const SingleShow = Loadable({
 	},
 });
 
+if (typeof window !== 'undefined') {
+	const preloadedState = window.__PRELOADED_STATE__;
+
+	delete window.__PRELOADED_STATE__;
+
+	finalStore = createStore(reducer, preloadedState,
+		composeEnhancers(
+			applyMiddleware(
+				ReduxThunk.withExtraArgument({ search, singleSearch }),
+			),
+		));
+}
+
 const App = () => (
-	<Provider store={store}>
+	<Provider store={finalStore}>
 		<h1 className='container mt-3'><Link to='/'>Search</Link></h1>
 		<Switch>
 			<Route
@@ -44,18 +61,14 @@ const App = () => (
 			<Route
 				path='/list'
 				render={() => (
-					<SkipServer>
-						<ShowsList />
-					</SkipServer>
+					<ShowsList />
 				)}
 			/>
 
 			<Route
 				path='/single'
 				render={() => (
-					<SkipServer>
-						<SingleShow />
-					</SkipServer>
+					<SingleShow />
 				)}
 			/>
 		</Switch>

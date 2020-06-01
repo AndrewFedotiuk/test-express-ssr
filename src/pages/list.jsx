@@ -27,7 +27,7 @@ export default () => {
 								className='card-body'
 								to={`/single?id=${id}`}
 								onClick={() => dispatch(singleSearchSuccess({
-									name, image, genres, summary, officialSite, language,
+									name, image, genres, summary, officialSite, language, id,
 								}))}
 							>
 								<img src={image ? image.medium : fakeImage} className='card-img-top mb-2' alt={name} />
