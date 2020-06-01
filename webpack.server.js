@@ -23,6 +23,7 @@ module.exports = {
 					plugins: [
 						'@babel/plugin-proposal-class-properties',
 						'dynamic-import-node',
+						'@babel/plugin-syntax-dynamic-import',
 						'react-loadable/babel',
 					],
 				},

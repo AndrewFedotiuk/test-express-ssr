@@ -10,7 +10,7 @@
 		"lint": "eslint --fix src --ext .js,.jsx",
 		"webpack:client": "webpack --config webpack.client.js --watch --mode=development",
 		"webpack:server": "webpack --config webpack.server.js --watch --mode=development",
-		"webpack:start": "nodemon --watch build --exec node build/bundle.js --mode=development"
+		"webpack:start": "node build/bundle.js --mode=production"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.10.1",
