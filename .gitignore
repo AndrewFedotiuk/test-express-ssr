@@ -1,7 +1,10 @@
 .DS_Store
 node_modules
 /dist
-/build
+build/*
+!build/public
+build/public/*
+!/build/public/react-loadable-ssr-addon.json
 
 # local env files
 .env.local

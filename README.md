@@ -15,6 +15,11 @@ yarn dev
 yarn build
 ```
 
+### To run production build (after yarn build)
+```
+yarn serve
+```
+
 ### Run your lint fix
 ```
 yarn lint
