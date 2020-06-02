@@ -4,14 +4,14 @@
 	"author": "Andrew(cc6.magister@gmail.com)",
 	"license": "MIT",
 	"scripts": {
-		"dev": "npm-run-all -p -r webpack:* & (sleep 0 && npm run start)",
+		"dev": "npm-run-all -p webpack:* start",
 		"build": "webpack --config webpack.client.js && webpack --config webpack.server.js --mode=production",
-		"serve": "node build/bundle.js --mode=development",
+		"serve": "node build/bundle.js",
 		"show_lint": "eslint src --ext .js,.jsx",
 		"lint": "eslint --fix src --ext .js,.jsx",
 		"webpack:server": "webpack --config webpack.server.js --watch --mode=development",
 		"webpack:client": "webpack --config webpack.client.js --watch --mode=development",
-		"start": "nodemon --watch --exec node build/bundle.js --mode=development"
+		"start": "wait-on build/bundle.js && nodemon --watch --exec node build/bundle.js"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.10.1",
@@ -49,6 +49,7 @@
 		"redux": "^4.0.5",
 		"redux-devtools-extension": "^2.13.8",
 		"redux-thunk": "^2.3.0",
+		"wait-on": "^5.0.0",
 		"webpack-node-externals": "^1.7.2"
 	}
 }
