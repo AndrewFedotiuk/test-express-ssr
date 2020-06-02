@@ -5,13 +5,23 @@ import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable-ssr-addon';
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import App from '../src/app';
-import store from '../src/store';
 
 import manifest from '../build/public/react-loadable-ssr-addon.json';
+import reducer from '../src/reducers';
+import { composeEnhancers, search, singleSearch } from '../src/store';
 
 const ssr = (req, res) => {
 	const modules = new Set();
+
+	const store = createStore(reducer,
+		composeEnhancers(
+			applyMiddleware(
+				ReduxThunk.withExtraArgument({ search, singleSearch }),
+			),
+		));
 
 	const content = ReactDOMServer.renderToString(
 		// eslint-disable-next-line react/jsx-filename-extension
@@ -54,6 +64,7 @@ const ssr = (req, res) => {
 		</html>
 	`;
 
+	res.set('Content-Type', 'text/html');
 	res.send(html);
 };
 

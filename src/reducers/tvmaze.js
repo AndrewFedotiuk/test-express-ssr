@@ -4,7 +4,7 @@ const initialState = {
 	searchWord: null,
 	searchResult: null,
 	singleSearchResult: null,
-	loading: false,
+	loading: null,
 	error: null,
 };
 

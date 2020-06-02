@@ -1,7 +1,7 @@
 import types from './action-types';
 import normalizeData from './helper';
 
-export const searchStarted = (word) => ({
+export const saveWord = (word) => ({
 	type: types.SEARCH_STARTED,
 	payload: word,
 });
@@ -22,10 +22,11 @@ export const searchFailure = (error) => ({
 });
 
 export const searchFilm = (word) => (dispatch, getState, { search }) => {
-	dispatch(searchStarted(word));
-
 	return fetch(search.concat(word))
-		.then((response) => response.json())
+		.then((response) => {
+			dispatch(saveWord(word));
+			return response.json();
+		})
 		.then((data) => data.map(({ show }) => normalizeData(show)))
 		.then((data) => dispatch(searchSuccess(data)))
 		.catch((e) => dispatch(searchFailure(e)));

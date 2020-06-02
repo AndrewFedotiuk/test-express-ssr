@@ -7,10 +7,10 @@ export default () => {
 	const { singleSearchResult } = useSelector((state) => state.tvmaze);
 	const dispatch = useDispatch();
 	const fakeImage = 'https://upload.wikimedia.org/wikipedia/en/6/60/No_Picture.jpg';
+	const currentId = getSearchParamsFromURL('id').toString();
 
-	if (!singleSearchResult) {
-		console.log(getSearchParamsFromURL('id'));
-		dispatch(searchFilmById(getSearchParamsFromURL('id')));
+	if (!singleSearchResult || singleSearchResult.id.toString() !== currentId) {
+		dispatch(searchFilmById(currentId));
 	} else {
 		const {
 			image, name, genres, summary, officialSite, language,
