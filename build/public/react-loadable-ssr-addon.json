@@ -3,26 +3,26 @@
     "main"
   ],
   "origins": {
-    "main": [
+    "./pages/home": [
       0
     ],
-    "./pages/home": [
+    "./pages/list": [
       1
     ],
-    "./pages/list": [
+    "./pages/single": [
       2
     ],
-    "./pages/single": [
-      3
+    "main": [
+      "main"
     ]
   },
   "assets": {
     "0": {
       "js": [
         {
-          "file": "client_bundle.js",
-          "hash": "16ab96430a2483a9a81d",
-          "publicPath": "/client_bundle.js"
+          "file": "0_chunk.js",
+          "hash": "e67a482c0845b6b9fb64",
+          "publicPath": "/0_chunk.js"
         }
       ]
     },
@@ -30,7 +30,7 @@
       "js": [
         {
           "file": "1_chunk.js",
-          "hash": "ffa28bba21c9fdeb358b",
+          "hash": "0eb097ca65658998ca21",
           "publicPath": "/1_chunk.js"
         }
       ]
@@ -39,17 +39,17 @@
       "js": [
         {
           "file": "2_chunk.js",
-          "hash": "0c956c329b60bc961dd0",
+          "hash": "9124ea584a9eb3c12283",
           "publicPath": "/2_chunk.js"
         }
       ]
     },
-    "3": {
+    "main": {
       "js": [
         {
-          "file": "3_chunk.js",
-          "hash": "d3a2e1d8b945f1fa885a",
-          "publicPath": "/3_chunk.js"
+          "file": "client_bundle.js",
+          "hash": "2323c477b4a505021a50",
+          "publicPath": "/client_bundle.js"
         }
       ]
     }
