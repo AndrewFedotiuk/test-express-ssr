@@ -6,6 +6,10 @@ export const saveWord = (word) => ({
 	payload: word,
 });
 
+export const mockForServerHelper = () => ({
+	type: types.MOCK_FOR_SERVER_HELPER,
+});
+
 export const searchSuccess = (data) => ({
 	type: types.SEARCH_SUCCESS,
 	payload: data,
@@ -22,7 +26,7 @@ export const searchFailure = (error) => ({
 });
 
 export const searchFilm = (word) => (dispatch, getState, { search }) => {
-	return fetch(search.concat(word))
+	return fetch(encodeURI(search.concat(word)))
 		.then((response) => {
 			dispatch(saveWord(word));
 			return response.json();
@@ -34,7 +38,7 @@ export const searchFilm = (word) => (dispatch, getState, { search }) => {
 
 export const searchFilmById = (id) => (
 	dispatch, getState, { singleSearch },
-) => fetch(singleSearch.concat(id))
+) => fetch(encodeURI(singleSearch.concat(id)))
 	.then((response) => response.json())
 	.then((show) => normalizeData(show))
 	.then((show) => dispatch(singleSearchSuccess(show)))

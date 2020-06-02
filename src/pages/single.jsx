@@ -17,7 +17,7 @@ export default () => {
 		} = singleSearchResult;
 
 		return (
-			<div className='container'>
+			<>
 				{Head('Single')}
 
 				<div className='row'>
@@ -37,7 +37,7 @@ export default () => {
 						)}
 					</div>
 				</div>
-			</div>
+			</>
 		);
 	}
 

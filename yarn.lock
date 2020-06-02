@@ -9192,6 +9192,13 @@ react-fast-compare@^2.0.4:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
+react-frontload@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-frontload/-/react-frontload-1.1.0.tgz#86897078510652f495f4096e56d0c0dd8501669f"
+  integrity sha512-Qam8cYRZEceEtSO/CwRNMSzV2riKP5/OjAgZQrx75tzmf+je99U6yDuocfItvzBZnOdhjnakQY6aNAHie2igiA==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-helmet@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-6.0.0.tgz#fcb93ebaca3ba562a686eb2f1f9d46093d83b5f8"
@@ -9229,11 +9236,6 @@ react-redux@^7.2.0:
     loose-envify "^1.4.0"
     prop-types "^15.7.2"
     react-is "^16.9.0"
-
-react-resolver@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/react-resolver/-/react-resolver-3.1.2.tgz#359fc3191163eb5fc28e5806f74fc163beb2e11c"
-  integrity sha512-TozU12NrwYtMNUQHNqtz/Vvx8qksDXrIpvWoAMY6VetwjkQtUb6PYP/zWIfWVSau6vgxLp2PyBHbvzJjCJRWPQ==
 
 react-router-dom@^5.2.0:
   version "5.2.0"

@@ -2,59 +2,40 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import Loadable from 'react-loadable';
+import { SkipServer } from './commponents/helpers';
 
-import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import ReduxThunk from 'redux-thunk';
-import store, { composeEnhancers, search, singleSearch } from './store';
-
-import reducer from './reducers';
-
-let finalStore = store;
+const Loader = () => (
+	<div className='spinner-border text-primary mx-auto' role='status'>
+		<span className='sr-only'>Loading...</span>
+	</div>
+);
 
 const Home = Loadable({
 	loader: () => import('./pages/home'),
-	loading() {
-		return <div>Loading...</div>;
-	},
+	loading: () => <Loader />,
 });
 
 const ShowsList = Loadable({
 	loader: () => import('./pages/list'),
-	loading() {
-		return <div>Loading...</div>;
-	},
+	loading: () => <Loader />,
 });
 
 const SingleShow = Loadable({
 	loader: () => import('./pages/single'),
-	loading() {
-		return <div>Loading...</div>;
-	},
+	loading: () => <Loader />,
 });
 
-if (typeof window !== 'undefined') {
-	const preloadedState = window.__PRELOADED_STATE__;
-
-	delete window.__PRELOADED_STATE__;
-
-	finalStore = createStore(reducer, preloadedState,
-		composeEnhancers(
-			applyMiddleware(
-				ReduxThunk.withExtraArgument({ search, singleSearch }),
-			),
-		));
-}
-
 const App = () => (
-	<Provider store={finalStore}>
-		<h1 className='container mt-3'><Link to='/'>Search</Link></h1>
+	<div className='container'>
+		<h1 className='mt-3'><Link to='/'>Search</Link></h1>
 		<Switch>
 			<Route
 				exact
 				path='/'
 				render={() => (
-					<Home />
+					<SkipServer>
+						<Home />
+					</SkipServer>
 				)}
 			/>
 
@@ -72,7 +53,7 @@ const App = () => (
 				)}
 			/>
 		</Switch>
-	</Provider>
+	</div>
 
 );
 

@@ -19,7 +19,7 @@ export default () => {
 	};
 
 	return (
-		<form onSubmit={emitSearch} className='container'>
+		<form onSubmit={emitSearch}>
 			{Head('Search')}
 
 			<input

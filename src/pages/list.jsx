@@ -13,10 +13,10 @@ export default () => {
 	if (!searchResult || currentKeyword !== searchWord) {
 		dispatch(searchFilm(currentKeyword));
 	} else {
-		if (!searchResult.length) return <p className='container'>Your search - did not match any shows.</p>;
+		if (!searchResult.length) return <p>Your search - did not match any shows.</p>;
 
 		return (
-			<div className='container'>
+			<div>
 				{Head('List')}
 				<p>Result:</p>
 				<ul className='row row-cols-1 row-cols-md-3 col mb-4'>

@@ -17,6 +17,12 @@ export default (state = initialState, action) => {
 				searchWord: action.payload,
 			};
 
+		case types.MOCK_FOR_SERVER_HELPER:
+			return {
+				...state,
+				loading: false,
+			};
+
 		case types.SEARCH_SUCCESS:
 			return {
 				...state,

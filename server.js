@@ -2,10 +2,7 @@ import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import Loadable from 'react-loadable';
-import fetch from 'node-fetch';
 import ssr from './server/ssr';
-
-global.fetch = fetch;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,7 +10,11 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static('build/public'));
 
-app.get('*', ssr);
+try {
+	app.get('*', ssr);
+} catch (e) {
+	console.log(e);
+}
 
 Loadable.preloadAll().then(() => {
 	try {

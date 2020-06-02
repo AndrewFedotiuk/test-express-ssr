@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { mockForServerHelper } from '../reducers/actions';
 
 export const Head = (text) => (
 	<Helmet>
@@ -12,10 +14,12 @@ export const Head = (text) => (
 export const getSearchParamsFromURL = (key = 'name') => new URLSearchParams(useLocation().search).get(key);
 
 export const SkipServer = ({ children }) => {
-	const [isDesktop, setIsDesktop] = useState(false);
+	const { loading } = useSelector((state) => state.tvmaze);
+	const dispatch = useDispatch();
 
-	useEffect(() => {
-		setIsDesktop(true);
-	}, []);
-	return isDesktop ? children : null;
+	if (loading === null) {
+		dispatch(mockForServerHelper());
+	}
+
+	return children;
 };

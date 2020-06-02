@@ -9,13 +9,13 @@ import { applyMiddleware, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import App from '../src/app';
 
+import 'isomorphic-fetch';
+
 import manifest from '../build/public/react-loadable-ssr-addon.json';
 import reducer from '../src/reducers';
 import { composeEnhancers, search, singleSearch } from '../src/store';
 
 const ssr = (req, res) => {
-	const modules = new Set();
-
 	const store = createStore(reducer,
 		composeEnhancers(
 			applyMiddleware(
@@ -23,26 +23,34 @@ const ssr = (req, res) => {
 			),
 		));
 
-	const content = ReactDOMServer.renderToString(
-		// eslint-disable-next-line react/jsx-filename-extension
-		<Provider store={store}>
-			<StaticRouter location={req.url}>
-				<Loadable.Capture report={(moduleName) => modules.add(moduleName)}>
-					<App />
-				</Loadable.Capture>
-			</StaticRouter>
-		</Provider>,
-	);
+	const modules = new Set();
 
-	const bundles = getBundles(manifest, [...manifest.entrypoints, ...Array.from(modules)]);
+	const unsubscribe = store.subscribe(() => {
+		const { loading } = store.getState().tvmaze;
 
-	const styles = bundles.css || [];
-	const scripts = bundles.js || [];
+		if (!loading && (typeof loading === 'boolean')) {
+			unsubscribe();
 
-	const preloadedState = store.getState();
-	const helmet = Helmet.renderStatic();
+			const content = ReactDOMServer.renderToString(
+				// eslint-disable-next-line react/jsx-filename-extension
+				<Provider store={store}>
+					<StaticRouter location={req.url}>
+						<Loadable.Capture report={(moduleName) => modules.add(moduleName)}>
+							<App />
+						</Loadable.Capture>
+					</StaticRouter>
+				</Provider>,
+			);
 
-	const html = `
+			const bundles = getBundles(manifest, [...manifest.entrypoints, ...Array.from(modules)]);
+
+			const styles = bundles.css || [];
+			const scripts = bundles.js || [];
+
+			const preloadedState = store.getState();
+			const helmet = Helmet.renderStatic();
+
+			const html = `
 		<!doctype html>
 		<html lang='en-EN'>
 			<head>
@@ -63,9 +71,18 @@ const ssr = (req, res) => {
 			${scripts.map((script) => `<script src='${script.file}'></script>`).join('\n')}
 		</html>
 	`;
+			res.status(200).send(html);
+		}
+	});
 
-	res.set('Content-Type', 'text/html');
-	res.send(html);
+	ReactDOMServer.renderToString(
+		// eslint-disable-next-line react/jsx-filename-extension
+		<Provider store={store}>
+			<StaticRouter location={req.url}>
+				<App />
+			</StaticRouter>
+		</Provider>,
+	);
 };
 
 export default ssr;
